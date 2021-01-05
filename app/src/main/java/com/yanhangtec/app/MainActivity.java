@@ -15,7 +15,7 @@ import com.yanhangtec.sensorlibrary.listener.InitializeListener;
 public class MainActivity extends AppCompatActivity
         implements InitializeListener, OnDebugListener,OnCardReaderListener {
 
-    CardReaderCenter<OnCardReaderListener> readerCenter;
+    private CardReaderCenter readerCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,7 +7,7 @@ package com.yanhangtec.sensorlibrary.client.listener;
  * @Email: sheedonsun@163.com
  * @Date: 12/14/20 2:19 PM
  */
-public interface OnCardReaderListener extends OnHandleListener {
+public interface OnCardReaderListener {
     void onCardInfo(String lblNum, boolean isContinuousSend);
 
     void onCardIsNormal(boolean isNormal);

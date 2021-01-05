@@ -14,8 +14,7 @@ import com.yanhangtec.sensorlibrary.serial.rs485.RSSerialPort;
  * @Email: sheedonsun@163.com
  * @Date: 12/14/20 3:00 PM
  */
-public class CardReaderClient extends BaseClient<OnCardReaderListener>
-        implements CardReaderCenter<OnCardReaderListener> {
+public class CardReaderClient implements CardReaderCenter {
 
     private static volatile CardReaderClient instance;
 

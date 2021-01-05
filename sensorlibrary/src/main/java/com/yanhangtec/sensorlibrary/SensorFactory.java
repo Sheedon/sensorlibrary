@@ -4,7 +4,6 @@ import androidx.annotation.IntRange;
 
 import com.yanhangtec.sensorlibrary.client.CardReaderClient;
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
-import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
 import com.yanhangtec.sensorlibrary.listener.InitializeListener;
 
 /**
@@ -103,7 +102,7 @@ public class SensorFactory {
      *
      * @return RFID中心的规范接口
      */
-    public static CardReaderCenter<OnCardReaderListener> getCardReaderCenter() {
+    public static CardReaderCenter getCardReaderCenter() {
         return CardReaderClient.getInstance();
     }
 

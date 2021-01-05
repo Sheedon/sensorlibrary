@@ -8,6 +8,8 @@ import com.yanhangtec.sensorlibrary.model.DataSource;
 import com.yanhangtec.sensorlibrary.model.RFIDModel;
 import com.yanhangtec.sensorlibrary.utils.TimerUtils;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -17,13 +19,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @Email: sheedonsun@163.com
  * @Date: 2020/4/15 14:25
  */
-class RFIDClient extends BaseClient<OnCardReaderListener>
-        implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeListener,
-        CardReaderCenter<OnCardReaderListener> {
+class RFIDClient implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeListener,
+        CardReaderCenter {
 
     private TimerUtils rfidTimer;
 
     private long lastTime = System.currentTimeMillis();
+
+    protected Set<OnCardReaderListener> listeners = new LinkedHashSet<>();
 
     private OnDebugListener debugListener;
 
@@ -50,6 +53,20 @@ class RFIDClient extends BaseClient<OnCardReaderListener>
         RFIDHelper.setSignalStrength();
         startTimer();
         lastRfidNum = "";
+    }
+
+    /**
+     * 新增监听器
+     */
+    public synchronized void addListener(OnCardReaderListener listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * 移除监听器
+     */
+    public synchronized void removeListener(OnCardReaderListener listener) {
+        listeners.remove(listener);
     }
 
     @Override

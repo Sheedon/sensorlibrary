@@ -1,7 +1,7 @@
 package com.yanhangtec.sensorlibrary.client.center;
 
+import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
 import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnHandleListener;
 
 /**
  * 读卡中心
@@ -10,7 +10,14 @@ import com.yanhangtec.sensorlibrary.client.listener.OnHandleListener;
  * @Email: sheedonsun@163.com
  * @Date: 12/14/20 2:22 PM
  */
-public interface CardReaderCenter<Listener extends OnHandleListener> extends BridgeCenter<Listener> {
+public interface CardReaderCenter {
+
+    // 初始化配置
+    void initConfig();
+
+    void addListener(OnCardReaderListener listener);
+
+    void removeListener(OnCardReaderListener listener);
 
     // 获取当前卡片编号
     String getCurrentCard();

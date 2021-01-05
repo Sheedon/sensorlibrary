@@ -10,6 +10,8 @@ import com.yanhangtec.sensorlibrary.model.OperatingModel;
 import com.yanhangtec.sensorlibrary.model.RSModel;
 import com.yanhangtec.sensorlibrary.utils.TimerUtils;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -19,12 +21,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @Email: sheedonsun@163.com
  * @Date: 12/14/20 2:03 PM
  */
-class RSClient extends BaseClient<OnCardReaderListener>
-        implements DataSource.Callback<RSModel>,
+class RSClient implements DataSource.Callback<RSModel>,
         TimerUtils.OnTimeListener,
-        CardReaderCenter<OnCardReaderListener> {
+        CardReaderCenter {
 
     private static volatile RSClient instance;
+
+    protected Set<OnCardReaderListener> listeners = new LinkedHashSet<>();
 
     private OnDebugListener debugListener;
 
@@ -55,6 +58,20 @@ class RSClient extends BaseClient<OnCardReaderListener>
         RSHelper.bindRSResult(this);
         startTimer();
         lastRsNum = "";
+    }
+
+    /**
+     * 新增监听器
+     */
+    public synchronized void addListener(OnCardReaderListener listener) {
+        listeners.add(listener);
+    }
+
+    /**
+     * 移除监听器
+     */
+    public synchronized void removeListener(OnCardReaderListener listener) {
+        listeners.remove(listener);
     }
 
     private void startTimer() {
