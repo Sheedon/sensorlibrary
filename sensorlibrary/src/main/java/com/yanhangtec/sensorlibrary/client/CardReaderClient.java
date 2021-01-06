@@ -1,6 +1,7 @@
 package com.yanhangtec.sensorlibrary.client;
 
 import com.yanhangtec.sensorlibrary.SensorConstant;
+import com.yanhangtec.sensorlibrary.SensorFactory;
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
 import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
@@ -37,9 +38,10 @@ public class CardReaderClient implements CardReaderCenter {
 
     @Override
     public void initConfig() {
-        initConfig(SensorConstant.TYPE_RFID);
+        initConfig(SensorFactory.getSensorType());
     }
 
+    @Override
     public void initConfig(int type) {
         this.type = type;
         switch (type) {

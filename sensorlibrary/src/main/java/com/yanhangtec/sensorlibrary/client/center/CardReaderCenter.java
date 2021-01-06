@@ -15,6 +15,8 @@ public interface CardReaderCenter {
     // 初始化配置
     void initConfig();
 
+    void initConfig(int type);
+
     void addListener(OnCardReaderListener listener);
 
     void removeListener(OnCardReaderListener listener);
