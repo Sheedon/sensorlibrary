@@ -13,7 +13,7 @@ import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
 import com.yanhangtec.sensorlibrary.listener.InitializeListener;
 
 public class MainActivity extends AppCompatActivity
-        implements InitializeListener, OnDebugListener,OnCardReaderListener {
+        implements InitializeListener, OnDebugListener, OnCardReaderListener {
 
     private CardReaderCenter readerCenter;
 
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SensorFactory.init(SensorConstant.TYPE_RFID, this);
+        SensorFactory.init(SensorConstant.TYPE_RS485, SensorConstant.PORT, 9600, this);
 
         readerCenter = SensorFactory.getCardReaderCenter();
         readerCenter.bindDebug(this);
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public int onSensorType() {
-        return SensorConstant.TYPE_RFID;
+        return SensorConstant.TYPE_RS485;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public int onBaudRate() {
-        return 115200;
+        return 9600;
     }
 
     @Override

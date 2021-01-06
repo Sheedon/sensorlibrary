@@ -121,8 +121,9 @@ class RSClient implements DataSource.Callback<RSModel>,
 
     @Override
     public void onTimeBack(Long aLong) {
-        long nowTimer = System.currentTimeMillis();
-        if (nowTimer - lastTime >= 1500) {
+        long nowTime = System.currentTimeMillis();
+        if (nowTime - lastTime >= 1500) {
+            lastTime = nowTime;
             RSHelper.setAutoReadCard(voidCallback);
             noticeRFIDIsNormal(false);
         }
