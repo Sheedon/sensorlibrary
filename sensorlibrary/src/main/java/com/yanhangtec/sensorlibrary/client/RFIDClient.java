@@ -2,7 +2,7 @@ package com.yanhangtec.sensorlibrary.client;
 
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
+import com.yanhangtec.sensorlibrary.client.listener.OnExceptionListener;
 import com.yanhangtec.sensorlibrary.helper.RFIDHelper;
 import com.yanhangtec.sensorlibrary.model.DataSource;
 import com.yanhangtec.sensorlibrary.model.RFIDModel;
@@ -28,7 +28,7 @@ class RFIDClient implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeLis
 
     protected Set<OnCardReaderListener> listeners = new LinkedHashSet<>();
 
-    private OnDebugListener debugListener;
+    private OnExceptionListener exceptionListener;
 
     // 上一次RFID编号
     private String lastRfidNum = "";
@@ -53,6 +53,11 @@ class RFIDClient implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeLis
         RFIDHelper.setSignalStrength();
         startTimer();
         lastRfidNum = "";
+    }
+
+    @Override
+    public void initConfig(int type) {
+        initConfig();
     }
 
     /**
@@ -80,8 +85,8 @@ class RFIDClient implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeLis
     }
 
     @Override
-    public void bindDebug(OnDebugListener listener) {
-        debugListener = listener;
+    public void bindException(OnExceptionListener listener) {
+        exceptionListener = listener;
     }
 
     private void startTimer() {
@@ -176,10 +181,10 @@ class RFIDClient implements DataSource.Callback<RFIDModel>, TimerUtils.OnTimeLis
     }
 
     private void sendDebug(boolean isStartDebug) {
-        if (debugListener == null)
+        if (exceptionListener == null)
             return;
 
-        debugListener.onDebug(isStartDebug);
+        exceptionListener.onException(isStartDebug);
     }
 
     private void syncTime() {

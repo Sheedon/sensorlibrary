@@ -3,7 +3,7 @@ package com.yanhangtec.sensorlibrary.client;
 
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
+import com.yanhangtec.sensorlibrary.client.listener.OnExceptionListener;
 import com.yanhangtec.sensorlibrary.helper.RSHelper;
 import com.yanhangtec.sensorlibrary.model.DataSource;
 import com.yanhangtec.sensorlibrary.model.OperatingModel;
@@ -29,7 +29,7 @@ class RSClient implements DataSource.Callback<RSModel>,
 
     protected Set<OnCardReaderListener> listeners = new LinkedHashSet<>();
 
-    private OnDebugListener debugListener;
+    private OnExceptionListener exceptionListener;
 
     private TimerUtils rsTimer;
 
@@ -58,6 +58,11 @@ class RSClient implements DataSource.Callback<RSModel>,
         RSHelper.bindRSResult(this);
         startTimer();
         lastRsNum = "";
+    }
+
+    @Override
+    public void initConfig(int type) {
+        initConfig();
     }
 
     /**
@@ -100,8 +105,8 @@ class RSClient implements DataSource.Callback<RSModel>,
     }
 
     @Override
-    public void bindDebug(OnDebugListener listener) {
-        debugListener = listener;
+    public void bindException(OnExceptionListener listener) {
+        exceptionListener = listener;
     }
 
     @Override
@@ -171,10 +176,10 @@ class RSClient implements DataSource.Callback<RSModel>,
     }
 
     private void sendDebug(boolean isStartDebug) {
-        if (debugListener == null)
+        if (exceptionListener == null)
             return;
 
-        debugListener.onDebug(isStartDebug);
+        exceptionListener.onException(isStartDebug);
     }
 
 

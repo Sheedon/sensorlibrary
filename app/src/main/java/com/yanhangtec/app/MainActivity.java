@@ -9,11 +9,12 @@ import com.yanhangtec.sensorlibrary.SensorConstant;
 import com.yanhangtec.sensorlibrary.SensorFactory;
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
+import com.yanhangtec.sensorlibrary.client.listener.OnExceptionListener;
 import com.yanhangtec.sensorlibrary.listener.InitializeListener;
 
 public class MainActivity extends AppCompatActivity
-        implements InitializeListener, OnDebugListener, OnCardReaderListener {
+        implements InitializeListener, OnExceptionListener, OnCardReaderListener {
+
 
     private CardReaderCenter readerCenter;
 
@@ -25,9 +26,8 @@ public class MainActivity extends AppCompatActivity
         SensorFactory.init(SensorConstant.TYPE_RS485, SensorConstant.PORT, 9600, this);
 
         readerCenter = SensorFactory.getCardReaderCenter();
-        readerCenter.bindDebug(this);
+        readerCenter.bindException(this);
         readerCenter.addListener(this);
-
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onDebug(boolean isDebug) {
+    public void onException(boolean isException) {
     }
 
     @Override

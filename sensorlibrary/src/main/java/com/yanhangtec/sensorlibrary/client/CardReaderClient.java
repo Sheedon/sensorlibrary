@@ -4,7 +4,7 @@ import com.yanhangtec.sensorlibrary.SensorConstant;
 import com.yanhangtec.sensorlibrary.SensorFactory;
 import com.yanhangtec.sensorlibrary.client.center.CardReaderCenter;
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
+import com.yanhangtec.sensorlibrary.client.listener.OnExceptionListener;
 import com.yanhangtec.sensorlibrary.serial.rfid.RFIDSerialPort;
 import com.yanhangtec.sensorlibrary.serial.rs485.RSSerialPort;
 
@@ -102,12 +102,12 @@ public class CardReaderClient implements CardReaderCenter {
     }
 
     @Override
-    public void bindDebug(OnDebugListener listener) {
+    public void bindException(OnExceptionListener listener) {
         if (type == SensorConstant.TYPE_RS485) {
-            RSClient.getInstance().bindDebug(listener);
+            RSClient.getInstance().bindException(listener);
             return;
         }
 
-        RFIDClient.getInstance().bindDebug(listener);
+        RFIDClient.getInstance().bindException(listener);
     }
 }

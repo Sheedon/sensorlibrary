@@ -1,7 +1,7 @@
 package com.yanhangtec.sensorlibrary.client.center;
 
 import com.yanhangtec.sensorlibrary.client.listener.OnCardReaderListener;
-import com.yanhangtec.sensorlibrary.client.listener.OnDebugListener;
+import com.yanhangtec.sensorlibrary.client.listener.OnExceptionListener;
 
 /**
  * 读卡中心
@@ -26,6 +26,6 @@ public interface CardReaderCenter {
 
     boolean isNormal();
 
-    void bindDebug(OnDebugListener listener);
+    void bindException(OnExceptionListener listener);
 
 }
